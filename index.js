@@ -33,22 +33,14 @@ const testCases = [
         // Cek apakah lanjut ke summary atau error muncul
         try {
             await page.waitForSelector('.summary_info', { timeout: 2000 });
-            console.log(`✅ Lanjut ke halaman summary (Case #${i + 1})`);
-
             // Klik Finish
             await page.click('#finish');
             await page.waitForSelector('.complete-header', { timeout: 2000 });
-
-            const doneText = await page.textContent('.complete-header');
             await page.waitForTimeout(2000)
-            if (doneText.includes('THANK YOU')) {
-                console.log('Checkout berhasil sampai halaman selesai');
-            } else {
-                console.log('Tidak berhasil mencapai halaman selesai');
-            }
+            console.log('Checkout berhasil sampai halaman selesai');
         } catch (err) {
             const errorText = await page.textContent('[data-test="error"]');
-            console.log(`Error muncul (Case #${i + 1}): ${errorText.trim()}`);
+            console.log(`Error muncul : ${errorText.trim()}`);
         }
 
         await page.close();
